@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10091d">
+  <meta name="description" content="A little light, a lot of love. A scroll-led Diwali greeting.">
+  <title>A little light — Happy Diwali</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+    :root { color-scheme: dark; --ink: #fff5df; --gold: #ffd482; --rose: #ff9e91; --progress: 0; }
+    * { box-sizing: border-box; }
+    html { background: #10091d; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: #10091d; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+    .story { height: 440vh; position: relative; }
+    .stage { height: 100svh; min-height: 560px; position: sticky; top: 0; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse at 50% 84%, #49203c 0%, #21132d 34%, #10091d 73%); }
+    .stage::before, .stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; }
+    .stage::before { z-index: -1; opacity: calc(.1 + var(--progress) * .25); background: radial-gradient(ellipse at 50% 80%, #ff8e42, transparent 52%); transition: opacity .4s; }
+    .stage::after { opacity: .18; background-image: radial-gradient(#fff1cf 0.7px, transparent 0.8px); background-size: 53px 53px; mask-image: linear-gradient(transparent, black 30%, transparent); }
+    .topbar { position: absolute; z-index: 10; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 28px 5vw; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: #e4d3bd; }
+    .brand { display: flex; gap: 10px; align-items: center; }
+    .brand-mark { width: 22px; height: 22px; border: 1px solid #f5c575; border-radius: 50%; display: grid; place-items: center; color: var(--gold); font-size: 12px; }
+    .copy { position: absolute; z-index: 3; top: 22%; left: 50%; width: min(90%, 780px); text-align: center; transform: translate(-50%, calc((1 - var(--progress)) * 34px)); opacity: calc(1 - clamp(0, var(--progress) * 1.6, .88)); transition: opacity .15s linear; }
+    .eyebrow { color: var(--gold); font-size: 11px; text-transform: uppercase; letter-spacing: .28em; }
+    h1, h2 { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; }
+    h1 { font-size: clamp(58px, 10vw, 132px); line-height: .94; margin: 20px 0 22px; letter-spacing: -.055em; }
+    h1 span { color: var(--gold); font-style: italic; }
+    .intro { max-width: 440px; margin: auto; color: #e1d1c3; font-size: clamp(14px, 1.5vw, 17px); line-height: 1.8; }
+    .hint { position: absolute; z-index: 4; bottom: 34px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 11px; color: #e5d5c0; font-size: 10px; text-transform: uppercase; letter-spacing: .2em; white-space: nowrap; opacity: calc(1 - clamp(0, var(--progress) * 2, 1)); }
+    .mouse { width: 17px; height: 26px; border: 1px solid #fff2d0a0; border-radius: 99px; position: relative; }
+    .mouse::after { content: ''; width: 2px; height: 5px; border-radius: 2px; background: var(--gold); position: absolute; top: 5px; left: 6px; animation: wheel 1.4s infinite; }
+    @keyframes wheel { to { transform: translateY(8px); opacity: 0; } }
+    .diya-wrap { position: absolute; z-index: 2; width: min(48vw, 430px); min-width: 260px; left: 50%; bottom: 10%; transform: translate(-50%, calc(var(--progress) * -12vh)) scale(calc(1 - var(--progress) * .23)); transform-origin: 50% 80%; filter: drop-shadow(0 0 30px #ff912c38); transition: filter .3s; }
+    .diya { width: 100%; overflow: visible; }
+    .flame { transform-origin: 50% 100%; opacity: calc(.1 + clamp(0, (var(--progress) - .03) * 4, 1)); transform: scale(calc(.55 + clamp(0, var(--progress) * 1.5, .45))); filter: drop-shadow(0 0 18px #ffb336); animation: flicker 1.8s ease-in-out infinite alternate; }
+    @keyframes flicker { from { rotate: -2deg; } to { rotate: 2deg; } }
+    .glow { position: absolute; z-index: -1; left: 50%; top: 40%; width: 75%; aspect-ratio: 1; border-radius: 50%; background: #ff9f32; filter: blur(72px); opacity: calc(var(--progress) * .38); transform: translate(-50%, -50%) scale(calc(.3 + var(--progress))); }
+    .scene-copy { position: absolute; z-index: 5; top: 17%; left: 50%; width: min(90%, 760px); text-align: center; opacity: 0; transform: translate(-50%, 30px); pointer-events: none; }
+    .scene-copy h2 { margin: 15px 0; font-size: clamp(42px, 7.5vw, 96px); line-height: 1; letter-spacing: -.04em; }
+    .scene-copy p { margin: 0 auto; max-width: 460px; color: #e8d5c3; line-height: 1.75; font-size: clamp(14px, 1.45vw, 17px); }
+    .scene-two { opacity: clamp(0, (var(--progress) - .2) * 5, 1); transform: translate(-50%, calc(30px - clamp(0, (var(--progress) - .2) * 5, 1) * 30px)); }
+    .scene-three { top: auto; bottom: 14%; opacity: clamp(0, (var(--progress) - .49) * 5, 1); transform: translate(-50%, calc(25px - clamp(0, (var(--progress) - .49) * 5, 1) * 25px)); }
+    .scene-four { top: 17%; opacity: clamp(0, (var(--progress) - .73) * 5, 1); transform: translate(-50%, calc(25px - clamp(0, (var(--progress) - .73) * 5, 1) * 25px)); }
+    .scene-four h2 { font-size: clamp(48px, 8vw, 104px); color: var(--gold); }
+    .rangoli { position: absolute; z-index: 1; width: min(74vw, 700px); aspect-ratio: 1; border: 1px solid #ffda9140; border-radius: 50%; left: 50%; top: 54%; transform: translate(-50%, -50%) scale(calc(.45 + var(--progress) * .6)) rotate(calc(var(--progress) * 34deg)); opacity: calc(var(--progress) * .55); transition: opacity .2s; }
+    .rangoli::before, .rangoli::after { content: ''; position: absolute; inset: 7%; border: 1px solid #ffb87554; border-radius: 50%; transform: rotate(45deg) scaleX(.45); }
+    .rangoli::after { transform: rotate(-45deg) scaleX(.45); }
+    .petal { position: absolute; inset: 20%; border: 1px solid #ffda9160; border-radius: 50% 0 50% 0; transform: rotate(var(--r)); }
+    .progress-track { position: absolute; z-index: 10; width: 1px; top: 28%; bottom: 28%; right: 5vw; background: #ffffff30; }
+    .progress-track span { display: block; width: 2px; height: calc(var(--progress) * 100%); background: var(--gold); margin-left: -1px; transform-origin: top; }
+    .chapter { position: absolute; z-index: 10; right: calc(5vw + 12px); top: 28%; height: 44%; display: flex; flex-direction: column; justify-content: space-between; color: #ffffff85; font-size: 9px; letter-spacing: .12em; writing-mode: vertical-rl; }
+    .footer-note { position: absolute; bottom: 34px; right: 5vw; z-index: 8; font-size: 10px; color: #d5c2ad88; letter-spacing: .08em; }
+    .end-spacer { height: 10px; }
+    .spark { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #ffd98c; box-shadow: 0 0 14px 3px #ffbc60; animation: twinkle 2.8s ease-in-out infinite alternate; }
+    .spark:nth-child(1) { left: 17%; top: 34%; animation-delay: -.6s; }.spark:nth-child(2) { left: 77%; top: 28%; animation-delay: -1.2s; }.spark:nth-child(3) { left: 22%; top: 64%; animation-delay: -.2s; }.spark:nth-child(4) { left: 83%; top: 58%; animation-delay: -1.8s; }.spark:nth-child(5) { left: 70%; top: 73%; animation-delay: -.9s; }
+    @keyframes twinkle { from { opacity: .18; transform: scale(.6); } to { opacity: .9; transform: scale(1.3); } }
+    @media (max-width: 650px) {
+      .story { height: 400vh; }.stage { min-height: 500px; }.topbar { padding: 20px 6vw; }.topbar .micro { display: none; }
+      .copy { top: 19%; }.diya-wrap { width: 82vw; bottom: 15%; }.scene-copy { top: 13%; }.scene-three { top: auto; bottom: 12%; }.scene-four { top: 12%; }
+      .progress-track { right: 5vw; top: 32%; bottom: 32%; }.chapter { right: calc(5vw + 10px); top: 32%; height: 36%; }.footer-note { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+  </style>
+</head>
+<body>
+  <main class="story" id="story">
+    <section class="stage" id="stage" aria-label="A Diwali greeting revealed as you scroll">
+      <header class="topbar"><div class="brand"><span class="brand-mark">✦</span><span>A little light</span></div><span class="micro">A Diwali story in four moments</span><span>Diwali · 2026</span></header>
+      <div class="spark" aria-hidden="true"></div><div class="spark" aria-hidden="true"></div><div class="spark" aria-hidden="true"></div><div class="spark" aria-hidden="true"></div><div class="spark" aria-hidden="true"></div>
+      <div class="copy"><div class="eyebrow">A little light goes a long way</div><h1>Let there be<br><span>light.</span></h1><p class="intro">A moment to slow down, gather close, and let the good things glow.</p></div>
+      <div class="scene-copy scene-two"><div class="eyebrow">First, a spark</div><h2>One small flame.<br>A thousand hopes.</h2><p>May this Diwali bring a new beginning, a softer heart, and a reason to smile every day.</p></div>
+      <div class="scene-copy scene-three"><div class="eyebrow">Make room for joy</div><h2>May your home<br>shine with love.</h2><p>For the laughter around the table, the sweets passed hand to hand, and the people who make it home.</p></div>
+      <div class="scene-copy scene-four"><div class="eyebrow">With love, today and always</div><h2>Happy Diwali</h2><p>Wishing you light, laughter, and beautiful new beginnings.</p></div>
+      <div class="rangoli" aria-hidden="true"><i class="petal" style="--r:0deg"></i><i class="petal" style="--r:45deg"></i><i class="petal" style="--r:90deg"></i><i class="petal" style="--r:135deg"></i></div>
+      <div class="glow" aria-hidden="true"></div>
+      <div class="diya-wrap" aria-hidden="true">
+        <svg class="diya" viewBox="0 0 440 330" role="img" aria-label="A glowing diya lamp">
+          <defs><linearGradient id="bowl" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#ffd37b"/><stop offset=".35" stop-color="#d77b38"/><stop offset="1" stop-color="#642c3a"/></linearGradient><linearGradient id="fire" x1="0" x2="0" y1="1" y2="0"><stop stop-color="#ff5e35"/><stop offset=".55" stop-color="#ffb433"/><stop offset="1" stop-color="#fff5bb"/></linearGradient></defs>
+          <ellipse cx="220" cy="293" rx="142" ry="17" fill="#ff9b52" opacity=".16"/>
+          <path class="flame" d="M220 33 C192 75 191 98 207 118 C184 104 174 87 180 68 C151 105 161 151 196 163 C204 166 212 167 220 165 C228 167 236 166 244 163 C279 151 289 105 260 68 C266 87 256 104 233 118 C249 98 248 75 220 33Z" fill="url(#fire)"/>
+          <path d="M217 119 C208 137 209 151 220 159 C231 151 232 137 223 119Z" fill="#fff7ca" opacity=".9"/>
+          <path d="M77 211 Q220 238 363 211 Q349 277 287 294 Q220 315 153 294 Q91 277 77 211Z" fill="url(#bowl)" stroke="#ffc56e" stroke-width="3"/>
+          <path d="M80 211 Q220 238 360 211" fill="none" stroke="#ffe3a2" stroke-width="7" stroke-linecap="round"/>
+          <path d="M123 248 Q220 269 317 248" fill="none" stroke="#f4ae59" stroke-width="2" opacity=".65"/>
+          <circle cx="220" cy="270" r="5" fill="#ffd78e" opacity=".85"/><circle cx="180" cy="263" r="3" fill="#ffd78e" opacity=".75"/><circle cx="260" cy="263" r="3" fill="#ffd78e" opacity=".75"/>
+        </svg>
+      </div>
+      <div class="hint"><span class="mouse"></span>Scroll to celebrate</div>
+      <div class="progress-track" aria-hidden="true"><span></span></div><div class="chapter" aria-hidden="true"><span>01 — SPARK</span><span>02 — TOGETHER</span><span>03 — WISH</span></div>
+      <div class="footer-note">A little light, shared with love.</div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const story = document.querySelector('#story');
+      let ticking = false;
+      function update() {
+        const rect = story.getBoundingClientRect();
+        const scrollable = story.offsetHeight - window.innerHeight;
+        const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+        document.documentElement.style.setProperty('--progress', progress.toFixed(4));
+        ticking = false;
+      }
+      window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+
+    })();
+  </script>
+</body>
+</html>
