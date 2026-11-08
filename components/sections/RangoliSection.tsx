@@ -31,6 +31,7 @@ function RangoliArtwork() {
 export function RangoliSection() {
   const build = useCallback((root: HTMLElement, pin: boolean) => {
     const select = gsap.utils.selector(root);
+    // Pin on mobile too, keeping the mandala in view until its drawing and reveal finish.
     const timeline = createScrubTimeline(root, pin, "+=180%");
     const strokes = select(".rangoli-stroke") as unknown as SVGGeometryElement[];
     strokes.forEach((stroke) => {
@@ -38,25 +39,26 @@ export function RangoliSection() {
       gsap.set(stroke, { strokeDasharray: length, strokeDashoffset: length });
     });
     gsap.set(select(".rangoli-art"), { rotation: -28, scale: 0.68, transformOrigin: "50% 50%" });
+    gsap.set(select(".rangoli-glow"), { scale: 0.68, autoAlpha: 0.38, transformOrigin: "50% 50%" });
     gsap.set(select(".rangoli-center"), { scale: 0, transformOrigin: "50% 50%" });
     gsap.set(select(".rangoli-dot"), { autoAlpha: 0, scale: 0, transformOrigin: "50% 50%" });
     gsap.set(select(".rangoli-petals"), { transformOrigin: "50% 50%" });
     gsap.set(select(".rangoli-copy"), { autoAlpha: 0, x: 42 });
     gsap.set(select(".rangoli-diya .diya__flame"), { autoAlpha: 0, scaleY: 0.1, transformOrigin: "50% 100%" });
-    gsap.set(select(".rangoli-radial-transition"), { scale: 0, transformOrigin: "50% 50%" });
 
     timeline
       .to(select(".rangoli-center"), { scale: 1, duration: 0.4, ease: "back.out(2.4)" }, 0.1)
+      .to(select(".rangoli-glow"), { scale: 1.18, autoAlpha: 1, duration: 1.15, ease: "sine.inOut" }, 0.25)
+      .to(select(".rangoli-glow"), { scale: 0.92, autoAlpha: 0.68, duration: 1.15, ease: "sine.inOut" }, 1.72)
       .to(strokes, { strokeDashoffset: 0, stagger: 0.19, duration: 1.15, ease: "power1.inOut" }, 0.38)
       .to(select(".rangoli-dot"), { autoAlpha: 1, scale: 1, stagger: { each: 0.03, from: "center" }, duration: 0.3 }, 0.94)
       .fromTo(select(".rangoli-petals"), { rotation: -18 }, { rotation: 18, duration: 1.1, ease: "sine.inOut" }, 1.1)
       .to(select(".rangoli-art"), { rotation: 32, scale: 1, duration: 2.15, ease: "power1.inOut" }, 0.35)
       .to(select(".rangoli-diya .diya__flame"), { autoAlpha: 1, scaleY: 1, duration: 0.25, stagger: 0.18, ease: "back.out(2)" }, 2.12)
-      .to(select(".rangoli-copy"), { autoAlpha: 1, x: 0, duration: 0.55, ease: "power2.out" }, 2.55)
-      .to(select(".rangoli-radial-transition"), { scale: 42, duration: 0.85, ease: "power2.in" }, 3.55);
+      .to(select(".rangoli-copy"), { autoAlpha: 1, x: 0, duration: 0.55, ease: "power2.out" }, 2.55);
   }, []);
 
-  const sectionRef = useGsapScene(build);
+  const sectionRef = useGsapScene(build, true);
 
   return (
     <section className="scene scene--rangoli" id="rangoli" ref={sectionRef} aria-labelledby="rangoli-title">
@@ -76,7 +78,6 @@ export function RangoliSection() {
         <span className="scene-footnote">Drawn in light. Made to be shared.</span>
       </div>
       <span className="scene-index">03 / 06</span>
-      <div className="rangoli-radial-transition" aria-hidden="true" />
     </section>
   );
 }

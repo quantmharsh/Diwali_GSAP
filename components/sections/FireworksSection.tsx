@@ -27,11 +27,14 @@ export function FireworksSection() {
     gsap.set(select(".fireworks-title__line"), { yPercent: 115, autoAlpha: 0, filter: "blur(8px)" });
     gsap.set(select(".fireworks-subtitle"), { autoAlpha: 0, y: 20 });
     gsap.set(select(".fireworks-skyline"), { yPercent: 22, autoAlpha: 0 });
+    gsap.set(select(".fireworks-haze"), { scaleY: 0.45, transformOrigin: "50% 100%" });
     gsap.set(select(".skyline-window"), { autoAlpha: 0.12 });
     gsap.set(select(".fireworks-transition"), { scale: 0, transformOrigin: "50% 50%" });
 
     timeline
       .to(select(".fireworks-skyline"), { yPercent: 0, autoAlpha: 1, duration: 0.85, ease: "power2.out" }, 0.1)
+      .to(select(".fireworks-haze"), { scaleY: 1.12, duration: 1.2, ease: "sine.inOut" }, 0.45)
+      .to(select(".fireworks-haze"), { scaleY: 0.9, duration: 1.05, ease: "sine.inOut" }, 1.9)
       .to(select(".skyline-window"), { autoAlpha: 1, stagger: { each: 0.12, from: "random" }, duration: 0.26 }, 0.62)
       .to(select(".fireworks-copy"), { autoAlpha: 1, y: 0, duration: 0.48, ease: "power2.out" }, 1.05)
       .to(select(".fireworks-title__line"), { yPercent: 0, autoAlpha: 1, filter: "blur(0px)", stagger: 0.22, duration: 0.7, ease: "power3.out" }, 1.2)

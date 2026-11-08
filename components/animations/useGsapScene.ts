@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 type SceneBuilder = (root: HTMLElement, pin: boolean) => void;
 
-export function useGsapScene(build: SceneBuilder) {
+export function useGsapScene(build: SceneBuilder, pinMobile = false) {
   const ref = useRef<HTMLElement>(null);
   useLayoutEffect(() => {
     const root = ref.current;
@@ -31,7 +31,8 @@ export function useGsapScene(build: SceneBuilder) {
       if (nextMode === "reduced") return;
 
       root.classList.add("gsap-enhanced");
-      context = gsap.context(() => build(root, nextMode === "desktop"), root);
+      const shouldPin = nextMode === "desktop" || (nextMode === "mobile" && pinMobile);
+      context = gsap.context(() => build(root, shouldPin), root);
       ScrollTrigger.refresh();
     };
 
@@ -47,7 +48,7 @@ export function useGsapScene(build: SceneBuilder) {
       root.removeAttribute("data-final-progress");
       root.removeAttribute("data-title-progress");
     };
-  }, [build]);
+  }, [build, pinMobile]);
 
   return ref;
 }

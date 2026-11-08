@@ -29,6 +29,7 @@ export function RiverSection() {
     const timeline = createScrubTimeline(root, pin, "+=175%");
     gsap.set(select(".river-sky, .river-copy"), { autoAlpha: 0 });
     gsap.set(select(".river-water"), { clipPath: "inset(100% 0 0 0)" });
+    gsap.set(select(".river-moon"), { y: 24, scale: 0.78, autoAlpha: 0, transformOrigin: "50% 50%" });
     gsap.set(select(".river-diya--follow"), { x: () => -window.innerWidth * 0.82, y: 0, rotation: -5, autoAlpha: 0 });
     gsap.set(select(".river-diya:not(.river-diya--follow)"), { autoAlpha: 0, y: 22 });
     gsap.set(select(".river-diya .diya__flame"), { autoAlpha: 0, scaleY: 0.1, transformOrigin: "50% 100%" });
@@ -38,6 +39,8 @@ export function RiverSection() {
 
     timeline
       .to(select(".river-sky"), { autoAlpha: 1, duration: 0.5 }, 0)
+      .to(select(".river-moon"), { y: 0, scale: 1, autoAlpha: 1, duration: 0.9, ease: "back.out(1.2)" }, 0.12)
+      .to(select(".river-moon"), { scale: 1.08, duration: 1.4, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.45)
       .to(select(".river-water"), { clipPath: "inset(0% 0 0 0)", duration: 0.9, ease: "power2.inOut" }, 0.15)
       .to(select(".river-copy"), { autoAlpha: 1, x: 0, duration: 0.5, ease: "power2.out" }, 0.5)
       .to(select(".river-diya--follow"), { x: () => window.innerWidth * 0.82, y: -24, rotation: 5, autoAlpha: 1, duration: 4.25, ease: "none" }, 0.8)

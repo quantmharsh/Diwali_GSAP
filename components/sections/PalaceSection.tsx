@@ -53,6 +53,7 @@ export function PalaceSection() {
     const timeline = createScrubTimeline(root, false, "+=155%");
     gsap.set(select(".palace-copy, .palace-sky, .palace-art, .palace-lantern"), { autoAlpha: 0 });
     gsap.set(select(".palace-art"), { y: 32 });
+    gsap.set(select(".palace-haze"), { scale: 0.72, autoAlpha: 0.35, transformOrigin: "50% 100%" });
     gsap.set(select(".palace-window"), { autoAlpha: 0, filter: "brightness(.35)" });
     gsap.set(select(".palace-mountain--far"), { xPercent: -5 });
     gsap.set(select(".palace-mountain--near"), { xPercent: 4 });
@@ -61,6 +62,8 @@ export function PalaceSection() {
 
     timeline
       .to(select(".palace-sky"), { autoAlpha: 1, duration: 0.7 }, 0)
+      .to(select(".palace-haze"), { scale: 1.2, autoAlpha: 0.9, duration: 1.3, ease: "sine.inOut" }, 0.35)
+      .to(select(".palace-haze"), { scale: 0.98, autoAlpha: 0.62, duration: 1.15, ease: "sine.inOut" }, 1.85)
       .to(select(".palace-mountain--far"), { xPercent: 0, duration: 1.1 }, 0.1)
       .to(select(".palace-mountain--near"), { xPercent: 0, duration: 1.2 }, 0.05)
       .to(select(".palace-art"), { autoAlpha: 1, y: 0, duration: 0.65 }, 0.2)

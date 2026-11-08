@@ -32,6 +32,16 @@ h1, h2 { font-family: var(--display); font-weight: 400; }
 h1 em, h2 em { color: var(--gold); font-weight: 400; }
 .scene-footnote { display: block; margin-top: 35px; color: #e7bc6885; font: italic 13px var(--display); }
 .site-header { position: absolute; z-index: 15; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 30px 5vw; color: #e6dccf; }
+.sound-toggle { position: fixed; z-index: 60; left: max(22px, env(safe-area-inset-left)); bottom: max(22px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 10px; min-height: 42px; padding: 0 15px; border: 1px solid #e7bc685c; border-radius: 99px; background: #100b17df; color: #f2dfbd; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; backdrop-filter: blur(14px); cursor: pointer; transition: border-color .25s, background .25s, transform .25s; }
+.sound-toggle:hover { transform: translateY(-2px); border-color: #e7bc68b0; background: #1d1425f2; }
+.sound-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.sound-toggle__icon { color: var(--gold); font: 20px/1 var(--display); }
+.sound-toggle__bars { display: inline-flex; height: 12px; align-items: center; gap: 2px; }
+.sound-toggle__bars i { display: block; width: 2px; height: 3px; border-radius: 2px; background: var(--gold); }
+.sound-toggle.is-playing .sound-toggle__bars i { animation: sound-wave .72s ease-in-out infinite alternate; }
+.sound-toggle.is-playing .sound-toggle__bars i:nth-child(2) { animation-delay: -.38s; }
+.sound-toggle.is-playing .sound-toggle__bars i:nth-child(3) { animation-delay: -.16s; }
+@keyframes sound-wave { to { height: 11px; } }
 .wordmark { display: flex; align-items: center; gap: 11px; font-size: 9px; line-height: 1.5; letter-spacing: .2em; }
 .wordmark__symbol { color: var(--gold); font-size: 24px; }
 .site-header__date, .header-link { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
@@ -122,7 +132,6 @@ h1 em, h2 em { color: var(--gold); font-weight: 400; }
 .rangoli-copy { position: absolute; z-index: 4; top: 34%; left: 64%; width: min(31vw, 440px); }
 .rangoli-copy h2 { margin: 0 0 24px; font-size: clamp(52px, 6.5vw, 88px); line-height: .95; letter-spacing: -.05em; }.rangoli-copy h2 em { font-style: italic; }
 .rangoli-copy p:not(.section-label) { color: var(--muted); font-size: 14px; line-height: 1.9; }
-.rangoli-radial-transition { position: absolute; z-index: 25; inset: 0; background: radial-gradient(circle, #fff2bc 0%, #f3bd68 34%, #311a36 66%, #08060d 100%); border-radius: 50%; pointer-events: none; }
 .gsap-enhanced .rangoli-copy { visibility: hidden; }
 
 /* D — a diya travels the river */
@@ -209,5 +218,6 @@ h1 em, h2 em { color: var(--gold); font-weight: 400; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .sound-toggle.is-playing .sound-toggle__bars i { animation: none; height: 7px; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
