@@ -22,7 +22,7 @@ export function FinaleSection() {
     gsap.set(select(".finale-vignette, .finale-light, .finale-copy, .finale-fireworks"), { autoAlpha: 0 });
     gsap.set(select(".finale-light"), { scale: 0.02, transformOrigin: "50% 50%" });
     gsap.set(select(".finale-title__letter"), { autoAlpha: 0, scale: 0.35, y: 56, rotationX: -65, filter: "blur(14px)" });
-    gsap.set(select(".finale-wishes, .finale-replay"), { autoAlpha: 0, y: 24 });
+    gsap.set(select(".finale-wishes, .finale-replay, .finale-credit"), { autoAlpha: 0, y: 24 });
 
     timeline
       .to(select(".finale-vignette"), { autoAlpha: 1, duration: 0.7 }, 0)
@@ -33,7 +33,8 @@ export function FinaleSection() {
       .to(select(".finale-title__letter"), { textShadow: "0 0 35px rgba(255,191,89,.78)", duration: 0.5, stagger: 0.03 }, 2.2)
       .to(select(".finale-fireworks"), { autoAlpha: 0.82, duration: 0.45 }, 2.45)
       .to(select(".finale-wishes"), { autoAlpha: 1, y: 0, duration: 0.55, ease: "power2.out" }, 2.88)
-      .to(select(".finale-replay"), { autoAlpha: 1, y: 0, duration: 0.4 }, 3.6);
+      .to(select(".finale-replay"), { autoAlpha: 1, y: 0, duration: 0.4 }, 3.6)
+      .to(select(".finale-credit"), { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 3.9);
   }, []);
 
   const sectionRef = useGsapScene(build);
@@ -56,6 +57,7 @@ export function FinaleSection() {
         <motion.a className="finale-replay" href="#top" whileHover={{ scale: 1.035 }} whileTap={{ scale: 0.97 }}>
           <span aria-hidden="true">↺</span> Begin the journey again
         </motion.a>
+        <p className="finale-credit">Created with light by <span>Quantam-Harsh</span></p>
       </div>
       <span className="scene-index">06 / 06</span>
     </section>

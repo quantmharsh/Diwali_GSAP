@@ -181,6 +181,8 @@ h1 em, h2 em { color: var(--gold); font-weight: 400; }
 .finale-signoff { margin-bottom: 0; color: #fff5e6b8; font: italic 15px var(--display); }.finale-signoff span { padding-left: 4px; color: #ed9584; }
 .finale-replay { display: inline-flex; align-items: center; justify-content: center; margin-top: 28px; padding: 11px 19px; border: 1px solid #e7bc6870; border-radius: 99px; background: #ffffff08; color: #f2dfbd; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
 .finale-replay span { margin-right: 7px; color: var(--gold); font-size: 15px; vertical-align: -1px; }
+.finale-credit { margin: 20px 0 0; color: #fff5e68a; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
+.finale-credit span { padding-left: 5px; color: #f0ca80; font-weight: 600; }
 .effects-canvas--finale { z-index: 5; }
 .gsap-enhanced .finale-vignette, .gsap-enhanced .finale-light, .gsap-enhanced .finale-copy { visibility: hidden; }
 
